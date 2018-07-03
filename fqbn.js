@@ -52,31 +52,23 @@ function parse(fqbn) {
   };
 }
 
-function stringify(obj) {
-  let output = obj.packager + ':' + obj.architecture + ':' + obj.id;
+function stringify(packager, architecture, id, config) {
+  let output = packager + ':' + architecture + ':' + id;
 
-  if (!obj.config) {
+  if (!config || Object.keys(config).length === 0) {
     return output;
   }
 
-  const configLen = Object.keys(obj.config).length;
+  const configParts = [];
 
-  if (obj.config && configLen > 0) {
-    output += ':';
-  }
-
-  let i = 0;
-  for (const key in obj.config) {
-    if (Object.prototype.hasOwnProperty.call(obj.config, key)) {
-      output += key + '=' + obj.config[key];
-
-      if (i < configLen - 1) {
-        output += ',';
-      }
-
-      i++;
+  for (const key in config) {
+    if (Object.prototype.hasOwnProperty.call(config, key)) {
+      configParts.push(key + '=' + config[key]);
     }
   }
+
+  configParts.sort();
+  output += ':' + configParts.join(',');
 
   return output;
 }
