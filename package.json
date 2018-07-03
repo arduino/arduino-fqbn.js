@@ -6,9 +6,25 @@
   "author": "Matteo Suppo",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^8.2.5",
+    "eslint": "^5.0.1",
+    "eslint-config-xo-space": "^0.19.0",
+    "eslint-plugin-jest": "^21.17.0",
     "jest": "^23.2.0"
   },
   "scripts": {
     "test": "jest"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "jest/globals": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+      "xo-space/esnext"
+    ],
+    "plugins": ["jest"]
   }
 }
