@@ -38,6 +38,9 @@ parseCases.forEach(testCase => {
 });
 
 const stringifyCases = [
+  {fqbn: [null, 'avr', 'uno', null],
+    error: 'PartMissingError', expects: 'error'},
+
   {fqbn: ['arduino', 'avr', 'uno', null],
     expects: 'arduino:avr:uno'},
   {fqbn: ['arduino', 'avr', 'uno', {}],
@@ -50,6 +53,15 @@ const stringifyCases = [
 
 stringifyCases.forEach(testCase => {
   test('stringify ' + testCase.expects, () => {
+    // Test Error
+    if (testCase.error) {
+      const testRun = function () {
+        FQBN.stringify(testCase.fqbn[0], testCase.fqbn[1], testCase.fqbn[2], testCase.fqbn[3]);
+      };
+      expect(testRun).toThrowError(testCase.error);
+      return;
+    }
+
     // Test Success
     const fqbn = FQBN.stringify(testCase.fqbn[0], testCase.fqbn[1], testCase.fqbn[2], testCase.fqbn[3]);
     expect(fqbn).toBe(testCase.expects);

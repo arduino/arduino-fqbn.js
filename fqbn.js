@@ -18,6 +18,12 @@ class InvalidConfigError extends Error {
   }
 }
 
+class PartMissingError extends Error {
+  constructor(parts) {
+    super('PartMissingError: the following parts are missing: ' + parts);
+  }
+}
+
 function parse(fqbn) {
   const parts = fqbn.split(':');
 
@@ -53,6 +59,21 @@ function parse(fqbn) {
 }
 
 function stringify(packager, architecture, id, config) {
+  const missingParts = [];
+  if (!packager) {
+    missingParts.push('packager');
+  }
+  if (!architecture) {
+    missingParts.push('architecture');
+  }
+  if (!id) {
+    missingParts.push('id');
+  }
+
+  if (missingParts.length > 0) {
+    throw new PartMissingError(missingParts);
+  }
+
   let output = packager + ':' + architecture + ':' + id;
 
   if (!config || Object.keys(config).length === 0) {
