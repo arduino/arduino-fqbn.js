@@ -1,0 +1,14 @@
+{
+  "name": "arduino-fqbn",
+  "version": "1.0.0",
+  "description": "Handle FQBN (fully qualified board names) in a safe way",
+  "main": "index.js",
+  "author": "Matteo Suppo",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.2.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
