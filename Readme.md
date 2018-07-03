@@ -19,15 +19,9 @@ arduino-fqbn
 - And viceversa:
 
 	```javascript
-	fqbn.stringify(
-	{
-		packager: 'arduino',
-		architecture: 'avr',
-		id: 'mega',
-		config: {
+	fqbn.stringify('arduino','avr','mega', {
 			cpu: 'atmega1260',
 			mem: '1024'
-		}
-	})
+		})
 	'arduino:avr:mega:cpu=atmega1260,mem=1024'
 	```
