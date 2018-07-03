@@ -1,11 +1,33 @@
 'use strict';
 
+class TooManyPartsError extends Error {
+  constructor(n) {
+    super('TooManyPartsError: expecting at most 4 parts, got ' + n);
+  }
+}
+
+class TooFewPartsError extends Error {
+  constructor(n) {
+    super('TooFewPartsError: expecting at least 3 parts, got ' + n);
+  }
+}
+
+class InvalidConfigError extends Error {
+  constructor(config) {
+    super('InvalidConfigError: configs should be in the form `key=value`, got ' + config);
+  }
+}
+
 function parse(fqbn) {
   const parts = fqbn.split(':');
 
   // Check length
-  if (parts.length !== 3 && parts.length !== 4) {
-    throw new Error('InvalidFQBN: given fqbn has ' + parts.length + ', should have 3 or 4');
+  if (parts.length > 4) {
+    throw new TooManyPartsError(parts.length);
+  }
+
+  if (parts.length < 3) {
+    throw new TooFewPartsError(parts.length);
   }
 
   // Parse config
@@ -15,7 +37,7 @@ function parse(fqbn) {
     for (const confPart of confParts) {
       const keyVal = confPart.split('=');
       if (keyVal.length !== 2) {
-        throw new Error('InvalidFQBN: given fqbn has an invalid config: ' + confPart);
+        throw new InvalidConfigError(confPart);
       }
 
       config[keyVal[0]] = keyVal[1];

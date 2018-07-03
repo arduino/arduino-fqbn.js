@@ -1,8 +1,13 @@
 const FQBN = require('./fqbn');
 
 const parseCases = [
-  {fqbn: 'invalid',
-    error: 'InvalidFQBN'},
+  {fqbn: 'fqbn:with:too:many:parts',
+    error: 'TooManyPartsError'},
+  {fqbn: 'toofewparts',
+    error: 'TooFewPartsError'},
+  {fqbn: 'fqbn:with:invalid:config',
+    error: 'InvalidConfigError'},
+
   {fqbn: 'arduino:avr:uno',
     expects: ['arduino', 'avr', 'uno', {}]},
   {fqbn: 'arduino:avr:mega:cpu=atmega1280',
