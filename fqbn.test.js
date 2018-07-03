@@ -38,18 +38,32 @@ parseCases.forEach(testCase => {
 });
 
 const stringifyCases = [
-  {fqbn: {packager: 'arduino', architecture: 'avr', id: 'uno'},
+  {fqbn: [null, 'avr', 'uno', null],
+    error: 'PartMissingError', expects: 'error'},
+
+  {fqbn: ['arduino', 'avr', 'uno', null],
     expects: 'arduino:avr:uno'},
-  {fqbn: {packager: 'arduino', architecture: 'avr', id: 'mega', config: {cpu: 'atmega1280'}},
+  {fqbn: ['arduino', 'avr', 'uno', {}],
+    expects: 'arduino:avr:uno'},
+  {fqbn: ['arduino', 'avr', 'mega', {cpu: 'atmega1280'}],
     expects: 'arduino:avr:mega:cpu=atmega1280'},
-  {fqbn: {packager: 'arduino', architecture: 'avr', id: 'mega', config: {cpu: 'atmega1280', mem: '1024'}},
+  {fqbn: ['arduino', 'avr', 'mega', {mem: '1024', cpu: 'atmega1280'}],
     expects: 'arduino:avr:mega:cpu=atmega1280,mem=1024'}
 ];
 
 stringifyCases.forEach(testCase => {
   test('stringify ' + testCase.expects, () => {
+    // Test Error
+    if (testCase.error) {
+      const testRun = function () {
+        FQBN.stringify(testCase.fqbn[0], testCase.fqbn[1], testCase.fqbn[2], testCase.fqbn[3]);
+      };
+      expect(testRun).toThrowError(testCase.error);
+      return;
+    }
+
     // Test Success
-    const fqbn = FQBN.stringify(testCase.fqbn);
+    const fqbn = FQBN.stringify(testCase.fqbn[0], testCase.fqbn[1], testCase.fqbn[2], testCase.fqbn[3]);
     expect(fqbn).toBe(testCase.expects);
   });
 });
