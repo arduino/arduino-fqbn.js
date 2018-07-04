@@ -1,0 +1,7 @@
+pipeline:
+  build:
+    image: node
+    commands:
+      - yarn install
+      - yarn run lint
+      - yarn run build

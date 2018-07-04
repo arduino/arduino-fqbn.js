@@ -1,4 +1,4 @@
-const FQBN = require('./fqbn');
+const FQBN = require('./index');
 
 const parseCases = [
   {fqbn: 'fqbn:with:too:many:parts',
