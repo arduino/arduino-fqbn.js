@@ -1,6 +1,6 @@
 {
   "name": "arduino-fqbn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Handle FQBN (fully qualified board names) in a safe way",
   "main": "lib/index.js",
   "module": "es/index.js",
