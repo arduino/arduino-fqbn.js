@@ -25,3 +25,10 @@ arduino-fqbn
 		})
 	'arduino:avr:mega:cpu=atmega1260,mem=1024'
 	```
+
+How to deploy on npm
+--------------------
+
+1. Change the version in package.json
+2. Login with `npm login`
+3. Publish with `npm publish`
