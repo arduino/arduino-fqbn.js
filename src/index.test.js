@@ -26,7 +26,6 @@ const parseCases = [
     error: 'TooFewPartsError'},
   {fqbn: 'fqbn:with:invalid:config',
     error: 'InvalidConfigError'},
-
   {fqbn: 'arduino:avr:uno',
     expects: ['arduino', 'avr', 'uno', {}]},
   {fqbn: 'arduino:avr:mega:cpu=atmega1280',
@@ -59,7 +58,6 @@ parseCases.forEach(testCase => {
 const stringifyCases = [
   {fqbn: [null, 'avr', 'uno', null],
     error: 'PartMissingError', expects: 'error'},
-
   {fqbn: ['arduino', 'avr', 'uno', null],
     expects: 'arduino:avr:uno'},
   {fqbn: ['arduino', 'avr', 'uno', {}],
