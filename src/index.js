@@ -18,7 +18,7 @@
 *
 */
 'use strict';
-
+//classes
 class TooManyPartsError extends Error {
   constructor(n) {
     super('TooManyPartsError: expecting at most 4 parts, got ' + n);
@@ -42,7 +42,7 @@ class PartMissingError extends Error {
     super('PartMissingError: the following parts are missing: ' + parts);
   }
 }
-
+//functions
 function parse(fqbn) {
   const parts = fqbn.split(':');
 
